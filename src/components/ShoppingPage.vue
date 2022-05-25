@@ -1,14 +1,16 @@
 <template>
   <div>
     <ShoppingHeader/>
+<!--    <ShoppingBody/>-->
   </div>
 </template>
 
 <script>
 import ShoppingHeader from "@/components/ShoppingHeader";
+import ShoppingBody from "@/components/ShoppingBody";
 export default {
   components:{
-    ShoppingHeader,
+    ShoppingHeader,ShoppingBody
   },
   name: "ShoppingPage",
 

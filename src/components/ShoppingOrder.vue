@@ -1,10 +1,10 @@
 <template>
-  <div>登陆</div>
+<div>订单</div>
 </template>
 
 <script>
 export default {
-  name: "UserLogin"
+  name: "ShoppingOrder"
 }
 </script>
 

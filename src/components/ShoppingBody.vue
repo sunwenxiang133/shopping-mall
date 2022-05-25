@@ -48,7 +48,6 @@ export default {
 .mybody{
   width: 1600px;
   margin: 0 auto;
-  margin-top: 60px;
 }
 
 .el-main{
