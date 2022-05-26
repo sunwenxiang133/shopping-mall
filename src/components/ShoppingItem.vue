@@ -20,8 +20,11 @@ export default {
   ],
   methods:{
     changeState(){
-      console.log('changeState');
-      this.$store.commit('changeState',this.item.id)
+      // console.log('changeState');
+      this.$store.commit('changeState',this.item.id);
+      /*if(this.item.love){
+        console.log(this.item);
+      }*/
     }
   },
   computed:{

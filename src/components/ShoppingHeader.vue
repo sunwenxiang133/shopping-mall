@@ -3,7 +3,8 @@
 
   <el-header>
   <el-menu router :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-    <el-menu-item route="/ShoppingBody" index="1">为您推荐</el-menu-item>
+    <el-menu-item route="/ShoppingBody" index="/ShoppingBody">为您推荐</el-menu-item>
+    <el-menu-item @click="$store.state.drawer = true">购物车</el-menu-item>
 <!--    <el-submenu index="2">
       <template slot="title">我的工作台</template>
       <el-menu-item index="2-1">选项1</el-menu-item>
@@ -16,13 +17,10 @@
         <el-menu-item index="2-4-3">选项3</el-menu-item>
       </el-submenu>
     </el-submenu>-->
-    <el-menu-item index="/ShoppingBody" @click="$store.state.drawer = true">购物车</el-menu-item>
-    <el-menu-item route="/ShoppingOrder" index="3">订单管理</el-menu-item>
-    <el-menu-item route="/UserLogin" index="4">登陆 | 注册</el-menu-item>
+    <el-menu-item route="/ShoppingOrder" index="/ShoppingOrder">订单管理</el-menu-item>
+    <el-menu-item route="/UserLogin" index="/UserLogin">登陆 | 注册</el-menu-item>
 <!--    <ShoppingBody/>-->
 <!--    侧边弹窗-->
-
-
   </el-menu>
   </el-header>
 
@@ -31,7 +29,7 @@
 </template>
 
 <script>
-import ShoppingBody from "@/components/ShoppingBody";
+// import ShoppingBody from "@/components/ShoppingBody";
 export default {
   name: "ShoppingHeader",
 /*  components:{
@@ -47,8 +45,15 @@ export default {
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
+    },
+    handleActive(){
+      this.activeIndex = this.$route.path;
     }
-  }
+  },
+  mounted() {
+    this.handleActive();
+    this.$bus.$on('handleActive');
+  },
 }
 </script>
 

@@ -7,10 +7,10 @@
 
 <script>
 import ShoppingHeader from "@/components/ShoppingHeader";
-import ShoppingBody from "@/components/ShoppingBody";
+// import ShoppingBody from "@/components/ShoppingBody";
 export default {
   components:{
-    ShoppingHeader,ShoppingBody
+    ShoppingHeader
   },
   name: "ShoppingPage",
 

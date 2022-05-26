@@ -19,8 +19,9 @@ const mutations = {
         // console.log(context.items);
         state.items.forEach((item)=>{
             if(item.id===id){
+                Vue.set(item,'mychecked',false);
                 Vue.set(item,'love',false);
-                item.love=!item.love;
+                item.love = !item.love;
                 Vue.set(item,'count',1);
                 // console.log(item);
             }
@@ -49,12 +50,18 @@ const mutations = {
                 console.log(item.count);
             }
         })
+    },
+    changeOrder(context,myOrder){
+        state.order=myOrder;
     }
 };
 const state = {
     drawer:false,
     items:[],
     favourite:[],
+    order:[],
+    userId:'',
+    myOrders:[]
 };
 
 export default new Vuex.Store({
