@@ -36,13 +36,22 @@ const mutations = {
         return item;
       }
     });
-    console.log(state.favourite);
+    // console.log(state.favourite);
   },
+
+  changeNewState() {
+    state.favourite = state.items.filter((item) => {
+      if (item.love === true) {
+        return item;
+      }
+    });
+  },
+
   changeAdd(context, myItem) {
     // console.log(myItem);
     state.items.forEach((item) => {
       /*            console.log(myItem);
-                                                      console.log(item.id);*/
+                                                                        console.log(item.id);*/
       if (item.id === myItem) {
         item.count = item.count + 1;
       }
@@ -58,7 +67,7 @@ const mutations = {
   },
   changeOrder(context, myOrder) {
     state.order = myOrder;
-    console.log(my);
+    // console.log(my);
   },
 };
 const state = {

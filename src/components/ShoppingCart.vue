@@ -53,7 +53,7 @@ export default {
     },
     totalCount() {
       var totalcount = 0;
-      this.favouriteItems.forEach((item) => {
+      this.$store.state.order.forEach((item) => {
         if (item.love) {
           totalcount += item.price1 * item.count;
         }
@@ -96,6 +96,17 @@ export default {
               message: '购买成功!'
             },
             this.$store.state.myOrders.unshift(this.$store.state.order),
+            this.$store.state.order.forEach((items) => {
+              this.$store.state.favourite.forEach((itemsF) => {
+                if (items.name === itemsF.name) {
+                  itemsF.love = false;
+                }
+              })
+              // this.$bus.$emit('changeState')
+            }),
+            this.$store.state.drawer = false,
+            this.$store.commit('changeNewState')
+            // this.$store.commit("changeState", this.item.id)
             // console.log(this.$store.state.myOrders)
         );
       }).catch(() => {

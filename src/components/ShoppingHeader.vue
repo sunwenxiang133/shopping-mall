@@ -2,13 +2,14 @@
   <div>
     <el-header>
       <el-menu
-        router
-        :default-active="activeIndex"
-        class="el-menu-demo"
-        mode="horizontal"
+          router
+          :default-active="activeIndex"
+          class="el-menu-demo"
+          mode="horizontal"
       >
         <el-menu-item route="/ShoppingBody" index="/ShoppingBody"
-          >为您推荐</el-menu-item
+        >为您推荐
+        </el-menu-item
         >
         <el-menu-item @click="$store.state.drawer = true">购物车</el-menu-item>
         <!--    <el-submenu index="2">
@@ -24,16 +25,23 @@
       </el-submenu>
     </el-submenu>-->
         <el-menu-item route="/ShoppingOrder" index="/ShoppingOrder"
-          >订单管理</el-menu-item
+        >订单管理
+        </el-menu-item
         >
         <el-menu-item route="/UserLogin" index="/UserLogin"
-          >登陆 | 注册</el-menu-item
+        >登陆 | 注册
+        </el-menu-item
         >
         <!--    <ShoppingBody/>-->
         <!--    侧边弹窗-->
       </el-menu>
     </el-header>
-
+    <!--    <el-menu
+            class="el-menu-demo"
+            mode="vertical"
+        >
+          <el-menu-item @click="$store.state.drawer = true">购物车</el-menu-item>
+        </el-menu>-->
     <router-view></router-view>
   </div>
 </template>

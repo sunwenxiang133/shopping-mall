@@ -22,6 +22,7 @@ export default {
       // console.log(name);
       // console.log('changeState');
       this.$store.commit("changeState", this.item.id);
+      console.log('changeState被调用了');
       /*if(this.item.love){
         console.log(this.item);
       }*/
@@ -32,6 +33,12 @@ export default {
       return "http://localhost:8080/api/" + this.item.pthumbnail;
     },
   },
+  mounted() {
+    this.$bus.$on('changeState', this.changeState);
+  }
+  /*updated() {
+    this.$store.commit("changeState", this.item.id);
+  }*/
 };
 </script>
 
