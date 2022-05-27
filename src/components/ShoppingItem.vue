@@ -1,13 +1,14 @@
 <template>
-  <li >
+  <li>
     <a href="#">
       <div class="mask"></div>
       <div class="box">
-        <img :src=Pic alt="">
+        <img :src="Pic" alt=""/>
       </div>
-      <i @click="changeState" class="iconfont icon-favorites-fill"></i>
-      <h3>{{item.name}}</h3>
-      <p>价格￥{{item.price1}}</p>
+      <i v-show="!item.love" @click="changeState(item)" class="iconfont icon-favorites-fill"></i>
+      <i v-show="item.love" @click="changeState(item)" class="iconfont icon-favorites-fill love"></i>
+      <h3>{{ item.name }}</h3>
+      <p>价格￥{{ item.price1 }}</p>
     </a>
   </li>
 </template>
@@ -15,30 +16,27 @@
 <script>
 export default {
   name: "ShoppingItem",
-  props:[
-    'item',
-  ],
-  methods:{
-    changeState(){
+  props: ["item"],
+  methods: {
+    changeState() {
+      // console.log(name);
       // console.log('changeState');
-      this.$store.commit('changeState',this.item.id);
+      this.$store.commit("changeState", this.item.id);
       /*if(this.item.love){
         console.log(this.item);
       }*/
-    }
+    },
   },
-  computed:{
-    Pic(){
-      return 'http://localhost:8080/api/'+this.item.pthumbnail;
-    }
-  }
-}
+  computed: {
+    Pic() {
+      return "http://localhost:8080/api/" + this.item.pthumbnail;
+    },
+  },
+};
 </script>
 
 <style scoped lang="less">
-
-
-li{
+li {
   float: left;
   /* position: absolute; */
   position: relative;
@@ -51,21 +49,26 @@ li{
   text-align: center;
   box-shadow: 2px 3px 6px 3px #999;
   overflow: hidden;
-  transition: all .5s;
+  transition: all 0.5s;
 
   /* border: 10px solid #000; */
-  i{
-    z-index:100;
+
+  i {
+    z-index: 100;
     position: absolute;
     /* width: 10px; */
     left: 85%;
     top: -5px;
     /* scale: 5; */
     font-size: 40px;
+    //color: rgba(255, 10, 10, 0.8);
+  }
+
+  .love {
     color: rgba(255, 10, 10, 0.8);
   }
 
-  h3{
+  h3 {
     height: 26px;
     margin-top: 16px;
     font-size: 16px;
@@ -73,52 +76,56 @@ li{
     transition: position 0.4s;
   }
 
-  p{
+  p {
     font-size: 14px;
   }
-  .mask{
+
+  .mask {
     z-index: 1;
     position: absolute;
     width: 100%;
     height: 100%;
-    top:0;
+    top: 0;
     left: 0;
     opacity: 0;
     transition: all 0.3s;
-    background-image: linear-gradient(
-        transparent,
-        rgba(0,0,0,.45)
-    )
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.45));
   }
-  :hover{
+
+
+  :hover {
     transform: scale(1.05);
     /* box-shadow: 4px 6px 8px 6px #999; */
-    .mask{
+
+    .mask {
       opacity: 1;
     }
-    h3{
+
+    h3 {
       position: absolute;
       bottom: 35px;
       font-size: 20px;
       font-weight: bold;
-      color:white;
+      color: white;
       z-index: 2;
       text-align: center;
       /* border: 1px solid #000; */
       width: 100%;
     }
-    img{
+
+    img {
       margin-top: 41px;
       transform: scale(1.268);
-
     }
   }
-  img{
+
+  img {
     transition: all 0.5s;
     width: 100%;
   }
 }
-li:nth-child(5n){
+
+li:nth-child(5n) {
   margin-right: 0px;
 }
 </style>

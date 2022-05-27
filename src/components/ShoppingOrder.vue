@@ -1,9 +1,13 @@
 <template>
   <div class="order">
-    <shopping-form v-for="(order,index) in orders" :key="index" :myorder="order"></shopping-form>
+    <shopping-form
+      v-for="(order, index) in orders"
+      :key="index"
+      :myorder="order"
+    ></shopping-form>
   </div>
 
-<!--  <div class="order">
+  <!--  <div class="order">
     <el-table stripe :data="myorder" style="width: 100%">
       <el-table-column type="index"> </el-table-column>
       <el-table-column label="图片">
@@ -38,23 +42,20 @@
 import ShoppingForm from "@/components/ShoppingForm";
 export default {
   name: "ShoppingOrder",
-  components:{
+  components: {
     ShoppingForm,
   },
-  data(){
-    return{
-      myOrder:this.$store.state.order
-    }
+  data() {
+    return {
+      myOrder: this.$store.state.order,
+    };
   },
-  computed:{
-    orders(){
+  computed: {
+    orders() {
       return this.$store.state.myOrders;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
-<style lang="less" scoped>
-
-
-</style>
+<style lang="less" scoped></style>

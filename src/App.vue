@@ -16,7 +16,7 @@ export default {
   mounted() {
     this.$axios.get('http://localhost:8080/api/goods/list').then((response)=>{
       this.$store.commit('setItem',response.data);
-      console.log('获取成功');
+      console.log('获取成功,物品为'+response.data);
     }).catch((response)=>{
       console.log(response);
     })

@@ -68,6 +68,7 @@ export default {
           this.$router.push("/ShoppingBody");
           this.$bus.$emit('handleActive');
           this.$store.state.userId=response.data;
+          console.log('请求成功，用户名为'+response.data);
         }
       })
     },
@@ -81,7 +82,7 @@ export default {
 
       }).then((response)=>{
         if(response.data==='OK'){
-         window.alert('注册成功');
+         window.alert('注册成功，返回值为'+response.data);
         }else{
           window.alert('用户已存在');
         }
