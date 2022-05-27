@@ -1,9 +1,9 @@
 <template>
   <div class="order">
     <shopping-form
-      v-for="(order, index) in orders"
-      :key="index"
-      :myorder="order"
+        v-for="(order, index) in orders"
+        :key="index"
+        :myorder="order"
     ></shopping-form>
   </div>
 
@@ -40,6 +40,7 @@
 
 <script>
 import ShoppingForm from "@/components/ShoppingForm";
+
 export default {
   name: "ShoppingOrder",
   components: {
@@ -55,6 +56,23 @@ export default {
       return this.$store.state.myOrders;
     },
   },
+  mounted() {
+    this.$axios
+        .post(`/api/order/listByUser?userId=${this.$store.state.userId}`)
+        .then((res) => {
+          console.log('订单请求成功,返回值为:');
+          console.log(res);
+          // this.orders = res.data;
+          // if (res.data.code === "001") {
+          //   this.orders = res.data.orders;
+          // } else {
+          //   this.notifyError(res.data.msg);
+          // }
+        })
+        .catch((err) => {
+          return Promise.reject(err);
+        });
+  }
 };
 </script>
 

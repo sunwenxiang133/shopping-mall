@@ -96,6 +96,19 @@ export default {
               message: '购买成功!'
             },
             this.$store.state.myOrders.unshift(this.$store.state.order),
+
+            //生成订单
+            this.$axios.post(`/api/order/addCastOrder?userId=${this.$store.state.userId}&cartList=${this.$store.state.myCartID}`)
+                .then((res) => {
+                  console.log('订单添加成功');
+                  console.log(res);
+                })
+                .catch(() => {
+                  console.log(this.$store.state.userId);
+                  console.log(this.$store.state.myCartID);
+                  console.log('订单添加失败')
+                }),
+
             this.$store.state.order.forEach((items) => {
               this.$store.state.favourite.forEach((itemsF) => {
                 if (items.name === itemsF.name) {
