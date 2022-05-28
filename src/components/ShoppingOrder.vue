@@ -1,7 +1,7 @@
 <template>
   <div class="order">
     <shopping-form
-        v-for="(order, index) in orders"
+        v-for="(order, index) in Torder"
         :key="index"
         :myorder="order"
     ></shopping-form>
@@ -49,6 +49,7 @@ export default {
   data() {
     return {
       myOrder: this.$store.state.order,
+      Torder:[],
     };
   },
   computed: {
@@ -61,7 +62,10 @@ export default {
         .post(`/api/order/listByUser?userId=${this.$store.state.userId}`)
         .then((res) => {
           console.log('订单请求成功,返回值为:');
+          console.log('res是');
           console.log(res);
+          // console.log(res.data);
+          this.Torder=res.data;
           // this.orders = res.data;
           // if (res.data.code === "001") {
           //   this.orders = res.data.orders;

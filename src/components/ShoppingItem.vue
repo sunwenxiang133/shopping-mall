@@ -5,8 +5,8 @@
       <div class="box">
         <img :src="Pic" alt=""/>
       </div>
-      <i v-show="!item.love" @click="changeState(item)" class="iconfont icon-favorites-fill"></i>
-      <i v-show="item.love" @click="changeState(item)" class="iconfont icon-favorites-fill love"></i>
+      <i v-show="!item.love" @click="changeStateLove(item)" class="iconfont icon-favorites-fill"></i>
+      <i v-show="item.love" @click="changeStateNotLove(item)" class="iconfont icon-favorites-fill love"></i>
       <h3>{{ item.name }}</h3>
       <p>价格￥{{ item.price1 }}</p>
     </a>
@@ -14,19 +14,49 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "ShoppingItem",
   props: ["item"],
   methods: {
-    changeState() {
+    changeStateLove() {
       // console.log(name);
       // console.log('changeState');
+      console.log('love');
       this.$store.commit("changeState", this.item.id);
-      console.log('changeState被调用了');
+      // console.log('changeState被调用了');
+      // console.log(this.item.id);
       /*if(this.item.love){
         console.log(this.item);
       }*/
+      axios
+          .post(
+              `/api/cart/add?userId=${this.$store.state.userId}&goodsId=${this.item.id}&&num=${this.item.count}&price=${this.item.price1}`
+          )
+          .then((response) => {
+            console.log("购物车物品添加成功,返回值为:");
+            console.log(response);
+              this.$store.state.myCartID=[];
+              this.$store.state.myCart=response.data;
+            response.data.forEach((item)=>{
+              this.$store.state.myCartID.push(item.cardid);
+            })
+            // state.myCartID = response.data[0].cardid;
+            console.log(this.$store.state.myCart);
+          })
+          .catch((response) => {
+            console.log(response);
+            console.log(this.$store.state.userId);
+            console.log(this.item.id);
+            console.log(this.item.count);
+            console.log(this.item.price1);
+          });
     },
+    changeStateNotLove(){
+      console.log('notlove');
+      this.$store.commit("changeState", this.item.id);
+    }
   },
   computed: {
     Pic() {

@@ -68,9 +68,38 @@ export default {
           this.$router.push("/ShoppingBody");
           this.$bus.$emit('handleActive');
           this.$store.state.userId=response.data;
-          console.log('请求成功，用户名为'+response.data);
+          console.log('111');
+          console.log(response.data);
+
+          this.$axios.get('api/cart/listByUser',{
+            params:{
+              userId:this.$store.state.userId
+            }
+          }).then((response)=>{
+            console.log('购物车请求成功');
+            console.log('333');
+            console.log(this.$store.state.userId);
+            console.log(response.data);
+            this.$store.state.myCart=response.data;
+            console.log(this.$store.state.favourite);
+            //把请求到的购物车数据给商城
+            this.$store.state.myCart.forEach((item)=>{
+              this.$store.state.items.forEach((itemF)=>{
+                if(item.name===itemF.name){
+                  this.$store.state.favourite.push(itemF);
+                  this.$store.commit('changeState',itemF.id);
+                }
+              })
+            })
+          }).catch((response)=>{
+            console.log(response);
+          })
         }
       })
+      console.log('222');
+      console.log(this.$store.state.userId);
+
+
     },
     onSubmit() { //formName
       // 为表单绑定验证功能

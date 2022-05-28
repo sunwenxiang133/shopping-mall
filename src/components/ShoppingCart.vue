@@ -33,6 +33,7 @@
       </div>
       <el-button @click="open">购买</el-button>
     </div>
+<!--  {{`/api/order/addCastOrder?userId=${this.$store.state.userId}&cartList=${this.$store.state.myCartID}`}}-->
   </div>
 </template>
 
@@ -45,6 +46,7 @@ export default {
   data() {
     return {
       selectItem: [],
+      myFavouriteItem:[],
     }
   },
   computed: {
@@ -60,6 +62,9 @@ export default {
       })
       return totalcount;
     },
+  },
+  updated() {
+    console.log('123');
   },
   methods: {
     handleSelectionChange(selection) {
@@ -97,6 +102,32 @@ export default {
             },
             this.$store.state.myOrders.unshift(this.$store.state.order),
 
+            // var tmpList=this.$store.state.order;
+
+
+            this.$store.state.myCartID=[],
+
+
+
+            this.$store.state.order.forEach((items) => {
+              console.log('@@@');
+              console.log(this.$store.state.myCart);
+              console.log(this.$store.state.order);
+              this.$store.state.myCart.forEach((itemsS)=>{
+                if(items.name===itemsS.name){
+                  this.$store.state.myCartID.push(itemsS.cardid);
+                }
+              })
+
+              this.$store.state.favourite.forEach((itemsF) => {
+                if (items.name === itemsF.name) {
+                  itemsF.love = false;
+                }
+              })
+              // this.$bus.$emit('changeState')
+            }),
+
+
             //生成订单
             this.$axios.post(`/api/order/addCastOrder?userId=${this.$store.state.userId}&cartList=${this.$store.state.myCartID}`)
                 .then((res) => {
@@ -109,14 +140,7 @@ export default {
                   console.log('订单添加失败')
                 }),
 
-            this.$store.state.order.forEach((items) => {
-              this.$store.state.favourite.forEach((itemsF) => {
-                if (items.name === itemsF.name) {
-                  itemsF.love = false;
-                }
-              })
-              // this.$bus.$emit('changeState')
-            }),
+
             this.$store.state.drawer = false,
             this.$store.commit('changeNewState')
             // this.$store.commit("changeState", this.item.id)

@@ -23,13 +23,23 @@ const mutations = {
       if (item.id === id) {
         if (item.love) {
           item.love = false;
+
+          state.myCart.forEach((mitem)=>{
+            if(mitem.goodsId===id){
+              state.temp=mitem.cardid;
+              console.log('###');
+              console.log(state.temp);
+            }
+          })
+
           axios
             .delete(
-              `/api/cart/deleteById?userId=${state.userId}&cartId=${state.myCartID}`
+              `/api/cart/deleteById?userId=${state.userId}&cartId=${state.temp}`
             )
             .then((response) => {
               console.log("购物车删除成功,返回值为:");
               console.log(response);
+              state.myCart=response.data;
             })
             .catch((response) => {
               console.log(response);
@@ -43,23 +53,6 @@ const mutations = {
           Vue.set(item, "mychecked", false);
           Vue.set(item, "love", true);
           Vue.set(item, "count", 1);
-          axios
-            .post(
-              `/api/cart/add?userId=${state.userId}&goodsId=${item.id}&&num=${item.count}&price=${item.price1}`
-            )
-            .then((response) => {
-              console.log("购物车添加成功,返回值为:");
-              console.log(response);
-              state.myCartID = response.data[0].cardid;
-              console.log(state.myCartID);
-            })
-            .catch((response) => {
-              console.log(response);
-              console.log(state.userId);
-              console.log(item.id);
-              console.log(item.count);
-              console.log(item.price1);
-            });
         }
         // item.love = !item.love;
         // console.log(item);
@@ -89,7 +82,10 @@ const mutations = {
                                                                                                                                                                                                                                                                                                                         console.log(item.id);*/
       if (item.id === myItem) {
         item.count = item.count + 1;
+
       }
+
+
     });
   },
   changeMin(id) {
@@ -112,7 +108,9 @@ const state = {
   order: [],
   userId: "",
   myOrders: [],
-  myCartID: "",
+  myCartID: [],
+  myCart:[],
+  temp:'',
 };
 
 export default new Vuex.Store({
