@@ -81,9 +81,44 @@ const mutations = {
       /*            console.log(myItem);
                                                                                                                                                                                                                                                                                                                         console.log(item.id);*/
       if (item.id === myItem) {
-        item.count = item.count + 1;
+        item.count = parseInt(item.count) + 1;
 
+
+        state.myCart.forEach((mitem)=>{
+          if(mitem.goodsId===item.id){
+            state.temp=mitem.cardid;
+            console.log('###');
+            console.log(state.temp);
+          }
+        })
+
+        axios
+            .delete(
+                `/api/cart/deleteById?userId=${this.state.userId}&cartId=${this.state.temp}`
+            )
+            .then((response) => {
+              console.log("购物车删除成功,返回值为:");
+              console.log(response);
+              state.myCart=response.data;
+            })
+
+
+        axios.post(
+            `/api/cart/add?userId=${this.state.userId}&goodsId=${item.id}&&num=${item.count}&price=${item.price1}`
+        )
+            .then((response) => {
+              console.log("购物车物品添加成功,返回值为:");
+              console.log(response);
+              state.myCartID=[];
+              state.myCart=response.data;
+              response.data.forEach((item)=>{
+                state.myCartID.push(item.cardid);
+              })
+              // state.myCartID = response.data[0].cardid;
+              console.log(state.myCart);
+            })
       }
+
 
 
     });
